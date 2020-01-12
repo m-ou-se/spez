@@ -15,7 +15,8 @@
 //! The auto(de)ref technique—and therefore this macro—is useless in generic
 //! functions, as Rust resolves the specialization based on the bounds defined
 //! on the generic context, not based on the actual type when instantiated.
-//! (See the last example for a demonstration of this.)
+//! (See [the example below](#in-a-generic-function) for a demonstration of
+//! this.)
 //!
 //! In non-generic contexts, it's also mostly useless, as you probably already
 //! know the exact type of all variables.
@@ -24,6 +25,8 @@
 //! macros that need to have different behaviour depending on the type of a
 //! value passed to it. For example, a macro that prints the `Debug` output of
 //! a value, but falls back to a default when it doesn't implement `Debug`.
+//! (See [the example below](#in-a-macro) for a demonstration of
+//! that.)
 //!
 //! # How to use it
 //!
@@ -194,6 +197,33 @@
 //!     }
 //! }
 //! assert_eq!(f(0i32), ":(");
+//! ```
+//!
+//! # In a macro
+//!
+//! This is a demonstration of a macro that prints the `Debug` output of a
+//! value, but falls back to `"<object of type ...>"` if it doesn't implement
+//! `Debug`.
+//!
+//! ```
+//! # use spez::spez;
+//! # use std::fmt::Debug;
+//! macro_rules! debug {
+//!     ($e:expr) => {
+//!         spez! {
+//!             for x = $e;
+//!             match<T: Debug> T {
+//!                 println!("{:?}", x);
+//!             }
+//!             match<T> T {
+//!                 println!("<object of type {}>", std::any::type_name::<T>());
+//!             }
+//!         }
+//!     }
+//! }
+//! debug!(123);
+//! # struct NoDebugType;
+//! debug!(NoDebugType);
 //! ```
 
 use proc_macro_hack::proc_macro_hack;
