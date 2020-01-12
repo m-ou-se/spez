@@ -4,7 +4,7 @@ use syn::Token;
 pub struct Args {
 	pub for_token: Token![for],
 	pub param: Option<syn::Ident>,
-	pub at_token: Option<Token![@]>,
+	pub at_token: Option<Token![=]>,
 	pub expr: syn::Expr,
 	pub semicolon_token: Token![;],
 	pub arms: Vec<Arm>,
@@ -25,7 +25,7 @@ impl syn::parse::Parse for Args {
 		let param;
 		let at_token;
 		let expr;
-		if input.peek2(Token![@]) {
+		if input.peek2(Token![=]) {
 			param = Some(input.parse()?);
 			at_token = Some(input.parse()?);
 			expr = input.parse()?;

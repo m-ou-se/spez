@@ -20,8 +20,9 @@ fn main() {
 
 	let result = spez! {
 		for x;
-		//for z @ x[0];
-		//for z @ &x;
+		//for x[0];
+		//for x = x[0];
+		//for x = &x;
 		match<T: A + B> T where i32: From<T> -> String {
 			println!("A + B + Into<i32>");
 			format!("Test {}", i32::from(x))
