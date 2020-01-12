@@ -43,7 +43,7 @@ fn spez_impl(args: Args) -> TokenStream2 {
 		let refs = refs(n_arms - i - 1);
 		let return_type = match arm.return_type {
 			Some(return_type) => quote! { #return_type },
-			None => quote! { () }
+			None => quote! { () },
 		};
 
 		traits.extend(quote! {

@@ -1,4 +1,6 @@
+use std::iter::once;
 use std::iter::FromIterator;
+use syn::punctuated::Punctuated;
 use syn::Token;
 
 pub struct Args {
@@ -67,10 +69,7 @@ impl syn::parse::Parse for Arm {
 		let ty = input.parse()?;
 		let where_clause: Option<syn::WhereClause> = input.parse()?;
 		let (arrow_token, return_type) = if input.peek(Token![->]) {
-			(
-				Some(input.parse()?),
-				Some(input.parse()?),
-			)
+			(Some(input.parse()?), Some(input.parse()?))
 		} else {
 			(None, None)
 		};
@@ -95,7 +94,7 @@ fn ident_to_expr(ident: syn::Ident) -> syn::Expr {
 		qself: None,
 		path: syn::Path {
 			leading_colon: None,
-			segments: syn::punctuated::Punctuated::from_iter(std::iter::once(syn::PathSegment {
+			segments: Punctuated::from_iter(once(syn::PathSegment {
 				ident,
 				arguments: syn::PathArguments::None,
 			})),
