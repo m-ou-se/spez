@@ -3,6 +3,10 @@ name = "spez-macros"
 version = "0.1.0"
 authors = ["Mara Bos <m-ou.se@m-ou.se>"]
 edition = "2018"
+license = "BSD-2-Clause"
+description = "proc_macro crate for spez"
+repository = "https://github.com/m-ou-se/spez"
+documentation = "https://docs.rs/spez"
 
 [lib]
 proc-macro = true

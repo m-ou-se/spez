@@ -1,6 +1,6 @@
 # spez
 
-Specialize based on thet type of an expression.
+Macro to specialize on the type of an expression.
 
 This crate implements *auto(de)ref specialization*:
 A trick to do specialization in non-generic contexts on stable Rust.
@@ -15,8 +15,9 @@ For the details of this technique, see:
 ## What it can and cannot do
 
 The auto(de)ref technique—and therefore this macro—is useless in generic
-functions, as rust resolves the specialization based on the bounds defined
-on the generic context, not based on the actual type.
+functions, as Rust resolves the specialization based on the bounds defined
+on the generic context, not based on the actual type when instantiated.
+(See the last example for a demonstration of this.)
 
 In non-generic contexts, it's also mostly useless, as you probably already
 know the exact type of all variables.
@@ -54,6 +55,7 @@ spez! {
     }
     match &str {
         println!("x is a string slice!");
+        assert!(false);
     }
 }
 ```
@@ -154,12 +156,35 @@ assert_eq!(result, 2);
 Unfortunately, you can't refer to variables of the scope around the `spec! {}` macro:
 
 ```compile_fail
-# use spez::spez;
 let a = 1;
 let result = spez! {
     for x = 1;
     match i32 {
-        println!("{}", a);
+        println!("{}", a); // ERROR
     }
 };
+```
+
+## In a generic function
+
+As mentioned above, the macro is of not much use in generic context, as the
+specialization is resolved based on the bounds rather than on the actual
+type in the instantiation of the generic function:
+
+```rust
+fn f<T: Debug>(v: T) -> &'static str {
+    spez! {
+        for v;
+        match i32 -> &'static str {
+            ":)"
+        }
+        match<T: Debug> T -> &'static str {
+            ":("
+        }
+        match<T> T -> &'static str {
+            ":(("
+        }
+    }
+}
+assert_eq!(f(0i32), ":(");
 ```
