@@ -226,6 +226,8 @@
 //! debug!(NoDebugType);
 //! ```
 
+#![no_std]
+
 use proc_macro_hack::proc_macro_hack;
 
 /// Specialize based on the type of an expression.

@@ -9,7 +9,7 @@ repository = "https://github.com/m-ou-se/spez"
 documentation = "https://docs.rs/spez"
 readme = "README.md"
 keywords = ["autoref", "autoderef", "specialization", "specialisation"]
-categories = ["rust-patterns", "development-tools", "development-tools::procedural-macro-helpers"]
+categories = ["rust-patterns", "development-tools", "development-tools::procedural-macro-helpers", "no-std"]
 
 [dependencies]
 proc-macro-hack = "0.5.11"
