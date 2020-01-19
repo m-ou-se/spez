@@ -1,6 +1,6 @@
 [package]
 name = "spez"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Mara Bos <m-ou.se@m-ou.se>"]
 edition = "2018"
 license = "BSD-2-Clause"
