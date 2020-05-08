@@ -156,7 +156,7 @@ assert_eq!(result, 2);
 
 ## Capturing variables
 
-Unfortunately, you can't refer to variables of the scope around the `spec! {}` macro:
+Unfortunately, you can't refer to variables of the scope around the `spez! {}` macro:
 
 ```compile_fail
 let a = 1;
