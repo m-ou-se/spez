@@ -258,6 +258,7 @@ fn spez_impl(args: Args) -> TokenStream2 {
 	let param_def = match args.param {
 		Some(param) => quote! {
 			let #param = self.0.take().unwrap();
+			let _ = #param; // Suppress unused variable warning.
 		},
 		None => quote! {},
 	};
