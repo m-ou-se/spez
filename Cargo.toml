@@ -11,6 +11,10 @@ readme = "README.md"
 keywords = ["autoref", "autoderef", "specialization", "specialisation"]
 categories = ["rust-patterns", "development-tools", "development-tools::procedural-macro-helpers", "no-std"]
 
+[lib]
+proc_macro = true
+
 [dependencies]
-proc-macro-hack = "0.5.11"
-spez-macros = { version = "=0.1.0", path = "macros" }
+proc-macro2 = "1.0.56"
+quote = "1.0.26"
+syn = { version = "2.0.15", features = ["full"] }
